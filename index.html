@@ -1,0 +1,406 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💌 Gửi Người Tớ Thương</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: radial-gradient(circle at center,
+        #450b35, #19051f 55%, #05000a);
+    color: white;
+    font-family: "Segoe UI", sans-serif;
+}
+
+#rain {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.heart {
+    position: absolute;
+    top: -50px;
+    animation: fall linear forwards;
+    filter: drop-shadow(0 0 8px #ff42b3);
+    user-select: none;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-5vh) rotate(0deg);
+        opacity: 0;
+    }
+    15% { opacity: 1; }
+    100% {
+        transform: translateY(115vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        radial-gradient(2px 2px at 20% 20%, white, transparent),
+        radial-gradient(2px 2px at 70% 40%, #ff8dd4, transparent),
+        radial-gradient(2px 2px at 40% 80%, white, transparent);
+    background-size: 170px 170px;
+    animation: twinkle 3s infinite alternate;
+}
+
+@keyframes twinkle {
+    from { opacity: .25; }
+    to { opacity: .9; }
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    padding: 85px 18px 55px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.main-heart {
+    font-size: 95px;
+    animation: beat 1.2s infinite;
+    filter: drop-shadow(0 0 20px #ff1688);
+}
+
+@keyframes beat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.17); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.1); }
+}
+
+h1 {
+    margin-top: 15px;
+    font-size: clamp(28px, 6vw, 48px);
+    color: #ffb1dd;
+    text-shadow: 0 0 15px #ff1493, 0 0 35px #ff1493;
+}
+
+.intro {
+    margin: 12px 0 25px;
+    color: #ffe0f1;
+    font-size: 16px;
+}
+
+button {
+    cursor: pointer;
+    border: 1px solid #ff9ed5;
+    border-radius: 30px;
+    padding: 13px 23px;
+    color: white;
+    background: linear-gradient(135deg, #ff218b, #a60079);
+    box-shadow: 0 0 18px #ff168866;
+    font-size: 15px;
+    transition: .25s;
+}
+
+button:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 0 28px #ff45b8;
+}
+
+.controls {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 10;
+}
+
+.controls button {
+    padding: 10px 15px;
+    font-size: 13px;
+}
+
+.letter {
+    display: none;
+    width: min(620px, 100%);
+    margin-top: 28px;
+    padding: 28px 25px;
+    text-align: left;
+    line-height: 1.85;
+    color: #592044;
+    background: linear-gradient(145deg, #fff3fa, #ffd6eb);
+    border: 2px solid #ff9ed5;
+    border-radius: 22px;
+    box-shadow: 0 0 35px #ff149355;
+    animation: appear .8s ease;
+}
+
+.letter.show {
+    display: block;
+}
+
+.letter h2 {
+    text-align: center;
+    color: #d41479;
+    margin-bottom: 18px;
+}
+
+.letter p {
+    margin-bottom: 13px;
+}
+
+.signature {
+    text-align: right;
+    font-style: italic;
+    color: #d41479;
+    font-weight: bold;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.footer {
+    margin-top: 28px;
+    color: #ffb8df;
+    font-size: 13px;
+}
+
+@media(max-width: 480px) {
+    .container { padding-top: 90px; }
+    .main-heart { font-size: 75px; }
+    .letter { padding: 22px 18px; }
+}
+</style>
+</head>
+
+<body>
+<div class="stars"></div>
+<div id="rain"></div>
+
+<div class="controls">
+    <button id="musicBtn">🎵 Bật nhạc</button>
+</div>
+
+<main class="container">
+    <div class="main-heart">❤️</div>
+
+    <h1>Gửi Người Tớ Thương</h1>
+
+    <p class="intro">
+        Có một bí mật nhỏ mà tớ muốn nói với cậu... 💗
+    </p>
+
+    <button id="openBtn">💌 Mở thư tình</button>
+
+    <article class="letter" id="letter">
+        <h2>💌 Gửi cậu, người đặc biệt của tớ</h2>
+
+        <p>Gửi cậu! ❤️</p>
+
+        <p>
+            Tớ đã suy nghĩ rất lâu mới quyết định viết những
+            dòng này. Có lẽ cậu không biết rằng cậu đã trở thành
+            một người rất đặc biệt trong thế giới nhỏ bé của tớ.
+        </p>
+
+        <p>
+            Tớ thích nụ cười của cậu, thích những lần được
+            nói chuyện cùng cậu, và thích cả những điều bình
+            thường nhất khi có cậu xuất hiện.
+        </p>
+
+        <p>
+            Đôi khi chỉ một tin nhắn nhỏ từ cậu cũng đủ khiến
+            tớ vui cả ngày. Tớ chẳng biết từ lúc nào, việc quan
+            tâm đến cậu đã trở thành một điều thật tự nhiên.
+        </p>
+
+        <p>
+            Tớ không biết cậu có cảm giác giống tớ hay không,
+            nhưng hôm nay tớ muốn thành thật với trái tim mình:
+            <strong>Tớ thích cậu! 💖</strong>
+        </p>
+
+        <p>
+            Tớ không mong cậu phải trả lời ngay. Tớ chỉ hy vọng
+            chúng ta có thể hiểu nhau nhiều hơn, nói chuyện
+            nhiều hơn và cùng tạo nên những kỷ niệm thật đẹp.
+        </p>
+
+        <p>
+            Cảm ơn cậu vì đã xuất hiện. Dù câu trả lời của cậu
+            là gì, tớ vẫn mong cậu luôn vui vẻ và hạnh phúc.
+        </p>
+
+        <p class="signature">
+            Từ một người đang thầm thích cậu 💗
+        </p>
+    </article>
+
+    <p class="footer">
+        ✨ Hãy nhấn vào màn hình để tạo thêm những trái tim ✨
+    </p>
+</main>
+
+<script>
+const rain = document.getElementById("rain");
+const hearts = ["❤️", "💗", "💖", "💕", "💘", "💓", "💞"];
+const MAX_HEARTS = 90;
+
+function createHeart(x = Math.random() * 100) {
+    if (rain.childElementCount >= MAX_HEARTS) return;
+
+    const heart = document.createElement("span");
+    heart.className = "heart";
+    heart.textContent =
+        hearts[Math.floor(Math.random() * hearts.length)];
+
+    heart.style.left = x + "vw";
+    heart.style.fontSize = (14 + Math.random() * 24) + "px";
+    heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+    heart.style.opacity = 0.6 + Math.random() * 0.4;
+
+    rain.appendChild(heart);
+    setTimeout(() => heart.remove(), 11000);
+}
+
+setInterval(() => createHeart(), 180);
+
+// Mở và đóng thư
+const letter = document.getElementById("letter");
+const openBtn = document.getElementById("openBtn");
+
+openBtn.addEventListener("click", () => {
+    letter.classList.toggle("show");
+
+    if (letter.classList.contains("show")) {
+        openBtn.textContent = "💗 Đóng thư";
+        letter.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    } else {
+        openBtn.textContent = "💌 Mở thư tình";
+    }
+});
+
+// Nhạc nền tạo bằng Web Audio API, không cần tải file nhạc.
+// Trình duyệt chỉ phát sau khi người dùng nhấn nút.
+let audioContext = null;
+let musicTimer = null;
+let musicOn = false;
+let noteIndex = 0;
+
+const musicBtn = document.getElementById("musicBtn");
+
+// Giai điệu nhẹ nhàng do website tự tạo
+const melody = [
+    523.25, 659.25, 783.99, 659.25,
+    587.33, 698.46, 880.00, 698.46,
+    523.25, 659.25, 783.99, 1046.50,
+    880.00, 783.99, 659.25, 587.33
+];
+
+function playNote() {
+    if (!audioContext || !musicOn) return;
+
+    const now = audioContext.currentTime;
+    const frequency = melody[noteIndex % melody.length];
+    noteIndex++;
+
+    // Âm chính
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+
+    oscillator.type = "sine";
+    oscillator.frequency.value = frequency;
+
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(0.055, now + 0.04);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.65);
+
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+
+    oscillator.start(now);
+    oscillator.stop(now + 0.7);
+
+    // Nốt nền nhỏ
+    const bass = audioContext.createOscillator();
+    const bassGain = audioContext.createGain();
+
+    bass.type = "sine";
+    bass.frequency.value = frequency / 2;
+
+    bassGain.gain.setValueAtTime(0.0001, now);
+    bassGain.gain.exponentialRampToValueAtTime(0.018, now + 0.04);
+    bassGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.7);
+
+    bass.connect(bassGain);
+    bassGain.connect(audioContext.destination);
+
+    bass.start(now);
+    bass.stop(now + 0.7);
+}
+
+musicBtn.addEventListener("click", async () => {
+    if (!audioContext) {
+        const AudioContextClass =
+            window.AudioContext || window.webkitAudioContext;
+
+        if (!AudioContextClass) {
+            alert("Trình duyệt này không hỗ trợ phát nhạc.");
+            return;
+        }
+
+        audioContext = new AudioContextClass();
+    }
+
+    if (!musicOn) {
+        await audioContext.resume();
+        musicOn = true;
+        musicBtn.textContent = "🔇 Tắt nhạc";
+        playNote();
+        musicTimer = setInterval(playNote, 650);
+    } else {
+        musicOn = false;
+        clearInterval(musicTimer);
+        musicTimer = null;
+        await audioContext.suspend();
+        musicBtn.textContent = "🎵 Bật nhạc";
+    }
+});
+
+// Nhấn vào nền để tạo trái tim bay
+document.addEventListener("pointerdown", (event) => {
+    if (event.target.closest("button")) return;
+
+    for (let i = 0; i < 5; i++) {
+        createHeart((event.clientX / window.innerWidth) * 100
+            + (Math.random() - 0.5) * 12);
+    }
+});
+</script>
+</body>
+</html>
